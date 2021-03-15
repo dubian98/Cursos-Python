@@ -24,6 +24,7 @@ devuelvepares=generapares(10)
 
 for i in devuelvepares:
     print(i)
+    print("esto es una prueba")
 
 
 #imprimir unos cuantos
