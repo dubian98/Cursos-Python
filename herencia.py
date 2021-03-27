@@ -36,22 +36,30 @@ class moto (vehiculos):
     def estado(self):
         print("Marca: ",self.marca,"\nModelo: ",self.modelo,"\nEnmarcha: ",self.enmarcha,"\nAcelerea: ",self.acelera,"\nFrena: ",self.frena,"\n", self.hcaballito )
 
-class Velectrico():
-    def __init__(self):
+class Velectrico(vehiculos):
+    def __init__(self,marcaE,modeloE):
+        super().__init__(marcaE,modeloE)
         self.autonimia=100
+    cargando=False
     def cargaenergia(self):
         self.cargando=True
+    def estado(self):
+        super().estado()
+        print("Cargando: ", self.cargando ,"\nAutonomia: ",self.autonimia)
 
-mimoto =  moto("yamaha","fz")
-mimoto.caballito()
-mimoto.estado()
+#mimoto =  moto("yamaha","fz")
+#mimoto.caballito()
+#mimoto.estado()
 
-mifurgoneta=furgoneta("renault","kangoo")
-mifurgoneta.arranca()
-print(mifurgoneta.carga(True))
-mifurgoneta.estado()
+#mifurgoneta=furgoneta("renault","kangoo")
+#mifurgoneta.arranca()
+#print(mifurgoneta.carga(True))
+#mifurgoneta.estado()
 
-class Belectrica(vehiculos,Velectrico):
+class Belectrica(Velectrico,vehiculos):
     pass
+
 mibici= Belectrica("orbea","hc1200")
+#mibici.cargaenergia()
 mibici.estado()
+
