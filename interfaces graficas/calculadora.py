@@ -7,6 +7,7 @@ Frame1.pack()
 
 operacion=""
 resultados=0
+resultado2=0
 #----------------------pantalla---------------------------
 
 numeropantalla=StringVar()
@@ -33,11 +34,30 @@ def sumar(num):
     operacion="suma"
     numeropantalla.set(resultados)
 
-#-------------------funcion elresultado-------------
-def elresultado():
+
+#-----------------------funciones-------------
+def resta1(num):
+    global operacion
+    global resultado2
+    resultado2=float(num)
+    operacion="resta2"
+    print(resultado2," ", operacion)
+    numeropantalla.set(resultado2)
+#-----------------------Resultado-------------
+
+def operar(num):
+    
+    global operacion 
     global resultados
-    numeropantalla.set(resultados+float(numeropantalla.get()))
-    resultados=0
+    global resultado2
+    if operacion =="resta2":
+        resultados=(resultado2-float(num))
+        print(resultados)
+    numeropantalla.set(resultados)
+    operacion="realizada"
+
+#-------------------funcion elresultado-------------
+
 #----------------------fila 1-------------------------
 
 b1=Button(Frame1, text="1" , width=3,command=lambda:numeropulsado("1"))
@@ -49,7 +69,7 @@ b2.grid(row=1, column=1,padx=2, pady=2)
 b3=Button(Frame1, text="3", width=3,command=lambda:numeropulsado("3") )
 b3.grid(row=1, column=2,padx=2, pady=2)
 
-dividir=Button(Frame1, text="/", width=3 )
+dividir=Button(Frame1, text="/", width=3,command=lambda:div(numeropantalla.get()) )
 dividir.grid(row=1, column=3,padx=2, pady=2)
 
 
@@ -64,7 +84,7 @@ b5.grid(row=2, column=1,padx=2, pady=2)
 b6=Button(Frame1, text="6" , width=3,command=lambda:numeropulsado("6"))
 b6.grid(row=2, column=2,padx=2, pady=2)
 
-multiplicar=Button(Frame1, text="*", width=3 ,command=lambda:numeropulsado("6"))
+multiplicar=Button(Frame1, text="*", width=3 ,command=lambda:mult(numeropantalla.get()))
 multiplicar.grid(row=2, column=3,padx=2, pady=2)
 
 #---------------fila 3-----------------------
@@ -78,7 +98,7 @@ b8.grid(row=3, column=1,padx=2, pady=2)
 b9=Button(Frame1, text="9", width=3,command=lambda:numeropulsado("9") )
 b9.grid(row=3, column=2,padx=2, pady=2)
 
-restar=Button(Frame1, text="-", width=3 )
+restar=Button(Frame1, text="-", width=3,command=lambda:resta1(numeropantalla.get()) )
 restar.grid(row=3, column=3,padx=2, pady=2)
 
 #---------------fila 4-----------------------
@@ -89,7 +109,7 @@ coma=Button(Frame1, text="," , width=3)
 coma.grid(row=4, column=1,padx=2, pady=2)
 suma=Button(Frame1, text="+" , width=3,command=lambda:sumar(numeropantalla.get()))
 suma.grid(row=4, column=2,padx=2, pady=2)
-igual=Button(Frame1, text="=" , width=3, command=lambda:elresultado())
+igual=Button(Frame1, text="=" , width=3, command=lambda:operar(numeropantalla.get()))
 igual.grid(row=4, column=3,padx=2, pady=2)
 
 borrar=Button(Frame1, text="borrar" )
