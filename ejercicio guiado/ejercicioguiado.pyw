@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import sqlite3 
 conexion=sqlite3.connect("ejercicio_guiado")
 micursor=conexion.cursor()
@@ -8,19 +9,36 @@ raiz.title("Formulario")
 
 #-------------crear al base de datos------------
 def generar():
-    conexion=sqlite3.connect("ejercicio_guiado")
-    micursor=conexion.cursor()    
-    micursor.execute('''
-        CREATE TABLE USUARIOS(
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        NOMBRE VARCHAR(50),
-        CONTRASEÑA VARCHAR(50),
-        APELLIDO VARCHAR(50),
-        DIRECCION VARCHAR(50),
-        COMENTARIOS VARCHAR(50))
-    ''')
-    conexion.commit()
-    conexion.close()
+    try:
+        conexion=sqlite3.connect("ejercicio_guiado")
+        micursor=conexion.cursor()    
+        micursor.execute('''
+            CREATE TABLE USUARIOS(
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            NOMBRE VARCHAR(50),
+            CONTRASEÑA VARCHAR(50),
+            APELLIDO VARCHAR(50),
+            DIRECCION VARCHAR(50),
+            COMENTARIOS VARCHAR(50))
+        ''')
+        conexion.commit()
+        conexion.close()
+    except sqlite3.OperationalError:
+        messagebox.showinfo("la base de datos ya existe")
+#-----------limpiar pantalla--------
+def limpiar():
+    x1.set("")
+    x2.set("")
+    x3.set("")
+    x4.set("")
+    x5.set("")
+    x6.set("")
+#----------cerrar documento---------------
+def info_salir():
+    
+    valor = messagebox.askokcancel("salir","¿Deseas salir de la aplicacion?")
+    if valor == True:
+        raiz.destroy()
 #------------Agregar datos ------------
 
 def insertar(num,con,ape,dire,com):
@@ -76,9 +94,9 @@ raiz.config(menu=barra_menu,width=400,height=400)
 #--------------menu----------------
 BBDD_menu=Menu(barra_menu,tearoff=0)
 BBDD_menu.add_command(label="Crear BBDD",command=lambda:generar())
-BBDD_menu.add_command(label="Salir")
+BBDD_menu.add_command(label="Salir",command=lambda:info_salir())
 BORRAR_menu=Menu(barra_menu,tearoff=0)
-BORRAR_menu.add_command(label="Borrar")
+BORRAR_menu.add_command(label="Borrar",command=lambda:limpiar())
 CRUD_menu=Menu(barra_menu,tearoff=0)
 CRUD_menu.add_command(label="crear",command=lambda:insertar(x1.get(),x2.get(),x3.get(),x4.get(),x5.get()))
 CRUD_menu.add_command(label="Leer",command=lambda:leer(x6.get()))
