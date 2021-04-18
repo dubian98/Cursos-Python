@@ -34,13 +34,13 @@ miConexion=sqlite3.connect("gestionProductos2")
 miCursor=miConexion.cursor()
 
 
-#miCursor.execute("SELECT * FROM PRODUCTOS WHERE SECCION='Confección'")
+miCursor.execute("SELECT * FROM PRODUCTOS WHERE ID=1")
 #miCursor.execute("UPDATE PRODUCTOS  SET PRECIO=35 WHERE NOMBRE_ARTICULO='Pelota' ")
-miCursor.execute("DELETE FROM PRODUCTOS  WHERE ID=4 ")
+#miCursor.execute("DELETE FROM PRODUCTOS  WHERE ID=4 ")
 
 
-#productos=miCursor.fetchall()
-#print(productos)
+productos=miCursor.fetchall()
+print(productos)
 
 miConexion.commit()
 
