@@ -1,25 +1,33 @@
 from tkinter import *
+from tkinter import messagebox
+import random
 
 fondo=Tk()
+fondo.title("Elije un numero")
 texto=""
-
+x1=random.randint(1,20)
 def revisar(num):
+    
     print("esta funcionando")
     global texto
-    if 1>num>20:
-        texto="el numero debe ser entre 1 y 20"
-        print("el numero debe ser entre 1 y 20")
-    elif num<12:
-        texto="el numero secreto es mayor"
-        print("el numero secreto es mayor")
-    elif num>12:
-        texto="el numero secreto es menor"
-        print("el numero secreto es menor")
-    else:
-        texto="felicitaciones adivinaste, el numero era 12"
-        print("felicitaciones adivinaste, el numero era 12")
-    cuadro4.config(text=texto,bg="yellow",fg="black")
 
+    try:
+        num=int(num)
+        if num>20 or num<1:
+            texto="el numero debe ser entre 1 y 20"
+            print("el numero debe ser entre 1 y 20")
+        elif num<x1:
+            texto="el numero secreto es mayor"
+            print("el numero secreto es mayor")
+        elif num>x1:
+            texto="el numero secreto es menor"
+            print("el numero secreto es menor")
+        else:
+            texto="felicitaciones adivinaste, el numero era " , x1
+            print("felicitaciones adivinaste, el numero era ",x1)
+        cuadro4.config(text=texto,bg="yellow",fg="black")
+    except:
+        messagebox.showerror("error","Solo se permiten valores numericos")
 pantalla=StringVar()
 cuadro1=Label(fondo,text="Adivina el numero [1-20]: " ,width=20)
 cuadro1.grid(row=0,column=1, padx=10, pady=10, columnspan=2)
@@ -37,7 +45,7 @@ cuadro4=Label(fondo)
 cuadro4.grid(row=3,column=0, padx=10, pady=10,columnspan=2)
 
 
-boton1=Button(fondo,text="Comprobar",command=lambda:revisar(int(pantalla.get())))
+boton1=Button(fondo,text="Comprobar",command=lambda:revisar(pantalla.get()))
 boton1.grid(row=2,column=2)
 
 fondo.mainloop()
